@@ -1,0 +1,33 @@
+[1mdiff --git a/app/controllers/movies_controller.rb b/app/controllers/movies_controller.rb[m
+[1mindex 1311ee4..e23b76a 100644[m
+[1m--- a/app/controllers/movies_controller.rb[m
+[1m+++ b/app/controllers/movies_controller.rb[m
+[36m@@ -21,6 +21,17 @@[m [mclass MoviesController < ApplicationController[m
+     redirect_to movies_path[m
+   end[m
+   [m
+[32m+[m[32m  def edit[m
+[32m+[m[32m    @movie = Movie.find params[:id][m
+[32m+[m[32m  end[m
+[32m+[m[41m [m
+[32m+[m[32m  def update[m
+[32m+[m[32m    @movie = Movie.find params[:id][m
+[32m+[m[32m    @movie.update_attributes!(user_params)[m
+[32m+[m[32m    flash[:notice] = "#{@movie.title} was successfully updated."[m
+[32m+[m[32m    redirect_to movie_path(@movie)[m
+[32m+[m[32m  end[m
+[32m+[m[41m  [m
+   private[m
+   def user_params[m
+    params.require(:movie)[m
+[1mdiff --git a/app/views/movies/show.html.haml b/app/views/movies/show.html.haml[m
+[1mindex dd8041b..413c710 100644[m
+[1m--- a/app/views/movies/show.html.haml[m
+[1m+++ b/app/views/movies/show.html.haml[m
+[36m@@ -14,4 +14,5 @@[m
+ [m
+ %p#description= @movie.description[m
+ [m
+[32m+[m[32m= link_to 'Edit info', edit_movie_path(@movie)[m
+ = link_to 'Back to movie list', movies_path[m
+\ No newline at end of file[m
